@@ -1,0 +1,95 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > UserCreationRequest</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.maihop.identify.service.dto.request</a>
+</div>
+
+<h1>Coverage Summary for Class: UserCreationRequest (com.maihop.identify.service.dto.request)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">UserCreationRequest</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.maihop.identify.service.dto.request;
+&nbsp;
+&nbsp;import com.maihop.identify.service.validator.DobConstraint;
+&nbsp;import jakarta.validation.constraints.Size;
+&nbsp;import lombok.*;
+&nbsp;import lombok.experimental.FieldDefaults;
+&nbsp;
+&nbsp;import java.time.LocalDate;
+&nbsp;
+&nbsp;@Data
+&nbsp;@NoArgsConstructor
+&nbsp;@AllArgsConstructor
+&nbsp;@Builder
+&nbsp;@FieldDefaults(level = AccessLevel.PRIVATE)
+&nbsp;public class UserCreationRequest {
+&nbsp;    @Size(min = 4, message = &quot;USERNAME_INVALID&quot;)
+&nbsp;    String username;
+&nbsp;
+&nbsp;    @Size(min = 8, message = &quot;PASSWORD_INVALID&quot;)
+&nbsp;    String password;
+&nbsp;    String firstName;
+&nbsp;    String lastName;
+&nbsp;
+&nbsp;    @DobConstraint(min = 18, message = &quot;INVALID_DOB&quot;)
+&nbsp;    LocalDate dob;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-02-26 17:04</div>
+</div>
+</body>
+</html>

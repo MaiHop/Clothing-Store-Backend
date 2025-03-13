@@ -1,0 +1,20 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /identify
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+      generate-ddl: true
+      show-sql: true
+  datasource:
+    url: "jdbc:mysql://localhost:3306/identify_service"
+    driverClassName: "com.mysql.cj.jdbc.Driver"
+    username: root
+    password: root
+
+jwt:
+  signerKey: "0icybF8ueCK42kX7keywJegXY1/rBTwSkRJ0uQB+cZ45bFS/dkGP092CUjN3BtVe"
+  valid-duration: 60 # in second
+  refreshable-duration: 120 # in second

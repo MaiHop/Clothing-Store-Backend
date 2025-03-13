@@ -1,0 +1,89 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.2'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'jacoco'
+}
+
+group = 'com.maihop'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(23)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	compileOnly 'org.projectlombok:lombok:1.18.34'
+	annotationProcessor 'org.projectlombok:lombok:1.18.34'
+
+	implementation 'org.mapstruct:mapstruct:1.6.2'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.2'
+
+	implementation 'org.springframework.security:spring-security-crypto:6.4.2'
+
+	implementation 'org.slf4j:slf4j-api:2.0.16'
+
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server:3.4.2'
+
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2'
+
+
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testCompileOnly 'org.projectlombok:lombok:1.18.34'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.34'
+	testImplementation 'com.h2database:h2:2.3.232'
+	testImplementation 'org.springframework.security:spring-security-test:6.4.3'
+
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport  //run right after ./gradlew clean build
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required.set(true)
+		csv.required.set(true)
+		html.required.set(true)
+	}
+	classDirectories.setFrom(
+			files(classDirectories.files.collect { fileTree(dir: it, exclude: [
+					'com/maihop/identify/service/dto/**',
+					'com/maihop/identify/service/entity/**',
+					'com/maihop/identify/service/mapper/**',
+					'com/maihop/identify/service/configuration/**'
+			]) })
+	)
+	finalizedBy jacocoTestCoverageVerification
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			enabled = true
+			limit {
+				minimum = 0.25
+			}
+		}
+	}
+}
